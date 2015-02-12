@@ -39,13 +39,15 @@
               })
               .error(function() {
                   $scope.itemContent.desc = 'No data';
+              })
+              .finally(function() {
+                $done();
               });
             
             $scope.items.unshift($scope.itemContent);
             $scope.cont++;
             
             
-            $done();
           }, 1000);
         };
 
