@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en" ng-app="myApp">
+  <head>
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <title>My App</title>  
+    
+    <link rel="stylesheet" href="lib/onsen/css/onsenui.css">  
+    <link rel="stylesheet" href="styles/app.css"/>
+    <link rel="stylesheet" href="styles/onsen-css-components-blue-basic-theme.css">  
+
+    <script src="lib/onsen/js/angular/angular.js"></script>    
+    <script src="lib/onsen/js/onsenui.js"></script>    
+    
+    <script src="cordova.js"></script>  
+    <script src="js/app.js"></script>  
+    <script>
+      ons.ready(function() {
+      });
+    </script>
+
+    <script>
+      angular.module('myApp', ['onsen'])
+      .controller('DemoController', function($scope, $timeout, $http) {
+        $scope.items = [];
+        $scope.cont = 0;
+
+        $scope.load = function($done) {
+          $timeout(function() {
+
+            $scope.itemContent = {
+              rand: Math.random()
+            };
+
+            $http.jsonp('http://numbersapi.com/random/year?callback=JSON_CALLBACK')
+              .success(function(data) {
+                  $scope.itemContent.desc = data;
+              })
+              .error(function() {
+                  $scope.itemContent.desc = 'No data';
+              });
+            
+            $scope.items.unshift($scope.itemContent);
+            $scope.cont++;
+            
+            
+            $done();
+          }, 1000);
+        };
+
+        $scope.reset = function(){
+          $scope.items.length = 0;
+          $scope.cont = 0;
+          
+        }
+
+      });
+    </script>
+
+   
+  </head>
+
+  <body>    
+
+    <ons-page ng-controller="DemoController">
+      <ons-pull-hook ng-action="load($done)" var="loader">
+        <span ng-switch="loader.getCurrentState()">
+          <span ng-switch-when="initial"><ons-icon size="35px" icon="ion-arrow-down-a"></ons-icon> Pull down to refresh</span>
+          <span ng-switch-when="preaction"><ons-icon size="35px" icon="ion-arrow-up-a"></ons-icon> Release to refresh</span>
+          <span ng-switch-when="action"><ons-icon size="35px" spin="true" icon="ion-load-d"></ons-icon> Loading data...</span>
+        </span>
+      </ons-pull-hook>
+
+      <ons-toolbar>
+      <div class="center">Pull to refresh</div>
+      </ons-toolbar>
+      <br>
+      <div style="text-align: center; font-size: 30px;">Fetched {{cont}} times
+        <br><br>
+        <button class="button button--outline" ng-click="reset()">Reset</button>
+        <br><br>
+        <ons-list>  
+          <ons-list-item modifier="chevron" class="item" ng-repeat="item in items">
+              <ons-row>
+                  <ons-col width="80px">
+                    <img ng-src="http://lorempixel.com/60/60/?{{item.rand}}" class="item-thum"></img>
+                  </ons-col>
+                  <ons-col>
+                      <p class="item-desc">{{ item.desc }}</p>
+                  </ons-col>
+              </ons-row>
+          </ons-list-item>
+        </ons-list>  
+      </div>
+    </ons-page>
+
+  </body>  
+</html>
