@@ -27,23 +27,22 @@
 
         $scope.load = function($done) {
           $timeout(function() {
-
-            $scope.itemContent = {
-              rand: Math.random()
-            };
-
             $http.jsonp('http://numbersapi.com/random/year?callback=JSON_CALLBACK')
               .success(function(data) {
-                  $scope.itemContent.desc = data;
+                $scope.items.unshift({
+                  desc: data,
+                  rand: Math.random()
+                });
               })
               .error(function() {
-                  $scope.itemContent.desc = 'No data';
+                $scope.items.unshift({
+                  desc: 'No data',
+                  rand: Math.random()
+                });
               })
               .finally(function() {
                 $done();
               });
-            
-            $scope.items.unshift($scope.itemContent);
           }, 1000);
         };
 
