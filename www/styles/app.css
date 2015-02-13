@@ -8,3 +8,7 @@ img{
     top: 0;
     bottom: 0;
 }
+
+ons-list-item {
+    line-height: 22px !important;
+}
