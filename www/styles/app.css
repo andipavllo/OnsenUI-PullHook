@@ -1,3 +1,10 @@
 .left {
 	text-align: left;
 }
+
+img{
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+}

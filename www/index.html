@@ -24,7 +24,6 @@
       angular.module('myApp', ['onsen'])
       .controller('DemoController', function($scope, $timeout, $http) {
         $scope.items = [];
-        $scope.cont = 0;
 
         $scope.load = function($done) {
           $timeout(function() {
@@ -45,16 +44,11 @@
               });
             
             $scope.items.unshift($scope.itemContent);
-            $scope.cont++;
-            
-            
           }, 1000);
         };
 
         $scope.reset = function(){
           $scope.items.length = 0;
-          $scope.cont = 0;
-          
         }
 
       });
@@ -74,14 +68,13 @@
         </span>
       </ons-pull-hook>
 
-      <ons-toolbar>
+      <ons-toolbar stylefixed>
       <div class="center">Pull to refresh</div>
+      <div class="right">
+        <ons-toolbar-button ng-click="reset()">Reset</ons-toolbar-button>
+      </div>
       </ons-toolbar>
-      <br>
-      <div style="text-align: center; font-size: 30px;">Fetched {{cont}} times
-        <br><br>
-        <button class="button button--outline" ng-click="reset()">Reset</button>
-        <br><br>
+      
         <ons-list>  
           <ons-list-item modifier="chevron" class="item" ng-repeat="item in items">
               <ons-row>
