@@ -13,12 +13,7 @@
 
     <script src="lib/onsen/js/angular/angular.js"></script>    
     <script src="lib/onsen/js/onsenui.js"></script>    
-     
     <script src="js/app.js"></script>  
-    <script>
-      ons.ready(function() {
-      });
-    </script>
 
     <script>
       angular.module('myApp', ['onsen'])
@@ -52,8 +47,6 @@
 
       });
     </script>
-
-   
   </head>
 
   <body>    
@@ -67,26 +60,30 @@
         </span>
       </ons-pull-hook>
 
-      <ons-toolbar stylefixed>
-      <div class="center">Pull to refresh</div>
-      <div class="right">
-        <ons-toolbar-button ng-click="reset()">Reset</ons-toolbar-button>
-      </div>
+      <ons-toolbar>
+        <div class="center">Pull to refresh</div>
+        <div class="right">
+          <ons-toolbar-button ng-click="reset()">Reset</ons-toolbar-button>
+        </div>
       </ons-toolbar>
-      <p style="text-align: center" ng-show="items.length === 0">Pull down to fetch data</p>
-        <ons-list>  
-          <ons-list-item modifier="chevron" class="item" ng-repeat="item in items">
-              <ons-row>
-                  <ons-col width="80px">
-                    <img ng-src="http://lorempixel.com/60/60/?{{item.rand}}" class="item-thum"></img>
-                  </ons-col>
-                  <ons-col>
-                      <p class="item-desc">{{ item.desc }}</p>
-                  </ons-col>
-              </ons-row>
-          </ons-list-item>
-        </ons-list>  
-      </div>
+
+      <ons-list>  
+        <ons-list-item ng-show="items.length === 0">
+          <div style="margin: 15px; text-align: center; opacity: 0.75;">
+            Pull down to fetch items
+          </div>
+        </ons-list-item>
+        <ons-list-item modifier="chevron" class="item" ng-repeat="item in items">
+            <ons-row>
+                <ons-col width="80px">
+                  <img ng-src="http://lorempixel.com/60/60/?{{item.rand}}" class="item-thum"></img>
+                </ons-col>
+                <ons-col>
+                    <p class="item-desc">{{ item.desc }}</p>
+                </ons-col>
+            </ons-row>
+        </ons-list-item>
+      </ons-list>  
     </ons-page>
 
   </body>  
