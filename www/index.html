@@ -73,7 +73,7 @@
         <ons-toolbar-button ng-click="reset()">Reset</ons-toolbar-button>
       </div>
       </ons-toolbar>
-      
+      <p style="text-align: center" ng-show="items.length === 0">Pull down to fetch data</p>
         <ons-list>  
           <ons-list-item modifier="chevron" class="item" ng-repeat="item in items">
               <ons-row>
