@@ -12,3 +12,9 @@ img{
 ons-list-item {
     line-height: 22px !important;
 }
+
+.info{
+	margin-top: 20px;
+	text-align: center;
+	opacity: 0.75;
+} 
